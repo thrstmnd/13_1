@@ -3,31 +3,30 @@ import requests
 
 root = Tk()
 def get_weather():
-    city = entercity.get()
-    key = "eb2d874646ac2a33fee383722928a247"
-    url = "https://openweathermap.org/data/2.5/weather"
-    params = {"APPID": key, "q": city, "units": "metric"}
+    city = cityField.get()
+    key = '994730ca299432f4061bb5beb41de813'
+    url = 'http://api.openweathermap.org/data/2.5/weather'
+    params = {'APPID': key, 'q': city, 'units': 'metric'}
     result = requests.get(url, params=params)
     weather = result.json()
-    info["text"] = f'{str(weather["name"])}: {weather["main"]["temp"]}'
+    info['text'] = f'{str(weather["name"])}: {weather["main"]["temp"]}'
 
-root.title("Погода")
-root.geometry("300x300")
+root['bg'] = '#fafafa'
+root.title('Погодное приложение')
+root.geometry('300x250')
 root.resizable(width=False, height=False)
-canvas = Canvas(root, height=300, width=300)
-canvas.pack()
 
-frameuser = Frame(root, bg="red")
-frameuser.place(relx=0.10, rely=0.10, relwidth=0.8, relheight=0.3)
-frameweather = Frame(root, bg="red")
-frameweather.place(relx=0.10, rely=0.50, relwidth=0.8, relheight=0.3)
+frame_top = Frame(root, bg='#ff0000', bd=5)
+frame_top.place(relx=0.15, rely=0.15, relwidth=0.7, relheight=0.25)
+frame_bottom = Frame(root, bg='#ff0000', bd=5)
+frame_bottom.place(relx=0.15, rely=0.55, relwidth=0.7, relheight=0.1)
 
-btnweather = Button(frameuser, text="Посмотреть погоду", bg="white", command=get_weather)
-btnweather.pack()
-entercity = Entry(frameuser, bg="white")
-entercity.pack()
+cityField = Entry(frame_top, bg='white', font=30)
+cityField.pack()
+btn = Button(frame_top, text='Посмотреть погоду', command=get_weather)
+btn.pack()
 
-info = Label(frameweather, text="Информация о погоде", bg="white", font=40)
+info = Label(frame_bottom, text='Погода в городе', bg='#ff0000', font=40)
 info.pack()
 
 root.mainloop()
